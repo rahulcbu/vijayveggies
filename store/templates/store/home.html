@@ -1,0 +1,301 @@
+{% extends 'store/main.html' %}
+
+{% block content %}
+<meta name="referrer" content="origin">
+<style>
+  * {
+    padding: 0;
+    margin: 0;
+    line-height: 1.5;
+    box-sizing: border-box;
+  }
+
+  a {
+    text-decoration: none;
+    font-size: 16px;
+    color: #333; /* Default link color */
+  }
+
+  .homeContainer {
+    position: relative; /* Ensure positioning context for shape overlays */
+  }
+
+  /* Banner styles */
+  .homeBanner {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 10px 0 0 50px;
+  }
+
+  .bannerLeft {
+    max-width: 50%; /* Adjust based on content needs */
+  }
+
+  .bannerLeft p {
+    font-weight: bolder;
+    font-size: 60px;
+    font-family: 'Roboto', sans-serif;
+    color: #006340;
+    margin-bottom: 20px;
+  }
+
+  .bannerLeft p:last-child {
+    color: #333; /* Adjusted color for body text */
+    font-size: 18px;
+  }
+
+  .darkBtn {
+    background-color: #c5c5c5;
+    color: white;
+    padding: 12px 24px;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+
+  .darkBtn:hover {
+    background-color: #3c6255;
+  }
+
+  /* Bullets section styles */
+  .homeBullets {
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    padding: 100px 0;
+  }
+
+  .bullet {
+    text-align: center;
+    padding: 20px;
+    transition: 0.5s;
+    border-radius: 50%;
+    background-color: #f0f0f0; /* Example background color */
+  }
+
+  .bullet img {
+    height: 160px;
+    width: 160px;
+    border-radius: 50%;
+    margin-bottom: 10px;
+    border: 1px solid #c9ff97; /* Example border color */
+  }
+
+  /* About banner styles */
+  .aboutBanner {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0 50px 200px 50px;
+    position: relative;
+  }
+
+  .aboutLeft {
+    padding: 50px 180px 50px 50px;
+    background-color: #c5c5c5;
+    height: 300px;
+    z-index: 0;
+  }
+
+  .aboutBtn {
+    background-color: transparent;
+    border: none;
+    margin-top: 50px;
+  }
+
+  .aboutRight {
+    margin-left: -100px;
+    margin-top: 50px;
+    z-index: 1;
+  }
+
+  .aboutRight img {
+    border: 5px solid #a1a1a1;
+    height: 330px;
+  }
+
+  /* Reviews section styles */
+  .reviews {
+    margin-top: 50px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+  }
+
+  .review {
+    max-width: 300px;
+    margin: 10px 15px;
+    padding: 30px;
+    border-radius: 15px;
+    border: 1px solid #2e2e2e38;
+    transition: box-shadow 0.3s ease;
+    background-color: #fff; /* Example background color */
+  }
+
+  .review:hover {
+    box-shadow: #6b6b6b38 0 0 15px;
+  }
+
+  .review img {
+    height: 50px;
+    width: 50px;
+    border-radius: 50%;
+    object-fit: cover;
+  }
+
+  .review .info {
+    display: flex;
+    justify-content: space-evenly;
+    margin-top: 30px;
+  }
+
+  /* Footer styles */
+  footer {
+    padding: 20px 0;
+    background-color: #3c6255;
+    color: #fff;
+    text-align: center;
+    position: relative;
+  }
+
+  .logo {
+    font-size: 45px;
+    font-family: 'Lobster Two', cursive;
+    margin-bottom: 20px;
+  }
+
+  .tabLinks {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px;
+  }
+
+  .tabLinks a {
+    color: #fff;
+    margin: 0 15px;
+    font-size: 18px;
+  }
+
+  .cInfo {
+    margin-bottom: 20px;
+  }
+
+  .bigI {
+    font-size: 20px;
+    margin-left: 5px;
+  }
+
+  .cUs {
+    margin-bottom: 20px;
+  }
+
+  .formTxt {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    border: 1px solid #464646;
+    background-color: #7a7a7a9c;
+    color: #fff;
+    outline: none;
+  }
+
+  .formTxt::placeholder {
+    color: #fff;
+  }
+
+  .cUs button {
+    color: #fff;
+    background-color: #7a7a7a;
+    border: #7a7a7a 1px solid;
+    padding: 10px 20px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+
+  .cUs button:hover {
+    background-color: #555;
+  }
+
+  /* Shape overlays */
+  .shape1,
+  .shape2 {
+    position: absolute;
+    background-color: #40803734;
+    border-radius: 50%;
+    z-index: -1;
+  }
+
+  .shape1 {
+    height: 600px;
+    width: 600px;
+    left: -20%;
+    top: -13%;
+  }
+
+  .shape2 {
+    height: 400px;
+    width: 400px;
+    right: 40%;
+    top: 223%;
+  }
+
+</style>
+
+<div class="shape1"></div>
+<div class="shape2"></div>
+
+<div class="homeContainer">
+
+  {% if successMsg %}
+    <div class="formSuccess">
+      {{ successMsg }}
+    </div>
+  {% endif %}
+
+  <!-- Banner section -->
+  <div class="homeBanner">
+    <div class="bannerLeft">
+      <p>EAT HEALTHY</p>
+      <p>STAY HEALTHY</p>
+      <p>Our vegetables are so fresh, they practically jump off the page and onto your plate. From leafy greens to juicy tomatoes, your taste buds dance with joy. Promise &#128513</p>
+      <a href="{% url 'store_page' %}"><button class="darkBtn">Start Shopping</button></a>
+    </div>
+    <img src="https://img.freepik.com/free-vector/vegetables-concept-illustration_114360-12366.jpg?size=626&ext=jpg&ga=GA1.1.1047322870.1676297463&semt=ais" alt="Vegetables illustration">
+  </div>
+
+  <!-- Bullets section -->
+  <div class="homeBullets">
+    <div class="bullet">
+      <img src="https://img.freepik.com/premium-vector/sprinkle-fresh-summer-salad-greens-vegetables-deep-plate-flying-salad-recipe_532973-238.jpg?size=626&ext=jpg&ga=GA1.1.1536630590.1680854130&semt=ais" alt="Fresh vegetables">
+      <h3 class="textCenter">Fresh vegetables</h3>
+    </div>
+    <div class="bullet">
+      <img src="https://img.freepik.com/premium-vector/eco-shopping-bag-with-vegetables-fruits-healthy-drinks-dairy-food-reusable-eco-friendly-shopper-net-zero-waste-plastic-free-concept-flat-trendy-design_275421-1993.jpg?size=626&ext=jpg&ga=GA1.1.1536630590.1680854130&semt=ais" alt="Eco friendly packaging">
+      <h3 class="textCenter">Eco friendly packaging</h3>
+    </div>
+    <div class="bullet">
+      <img src="https://img.freepik.com/premium-vector/girl-picks-tomatoes-from-branchharvest-concepthand-drawn-flat-vector-illustration-isolated-white-background_348404-563.jpg?size=626&ext=jpg&ga=GA1.1.1536630590.1680854130&semt=ais" alt="Locally grown">
+      <h3 class="textCenter">Locally grown</h3>
+    </div>
+  </div>
+
+  <!-- Footer section -->
+  <footer>
+    <div class="logo">
+      <a href="{% url 'home_page' %}" id="brandName">Vijay Veggies</a>
+    </div>
+    <div class="tabLinks">
+      <a href="{% url 'home_page' %}">Home</a>
+      <a href="{% url 'aboutus_page' %}">About us</a>
+      <a href="{% url 'faq_page' %}">FaQ</a>
+      <a href="{% url 'store_page' %}">Shop</a>
+    </div>
+    <div class="cInfo">
+      <h3>Contact Details</h3>
+      <p><i class="fa-solid fa-phone"></i> 8876234873</p>
+      <p><i class="fa-solid fa-location-dot"></i> Dexter Lake, Cardova, Memphis</p>
+      <div>
+        
+{% endblock %}
